@@ -12,6 +12,15 @@
 
 </div>
 
+## Screenshots
+
+Captured from the live site (https://yousefkhames.github.io/rag3ha/).
+
+<p>
+  <img src="docs/screenshots/live-desktop.png" alt="rag3ha desktop view" width="640">
+  <img src="docs/screenshots/live-mobile.png" alt="rag3ha mobile view" width="200">
+</p>
+
 ## Why
 Return windows close quietly. Most trackers ask for access to your inbox or an account. Rag3ha does the one useful thing: you paste the receipt text, it works out the deadline, shows a countdown and can put it in your calendar. Nothing leaves your browser.
 
