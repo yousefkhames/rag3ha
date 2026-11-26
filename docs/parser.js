@@ -77,6 +77,10 @@
       let c = (m[1] || m[3] || "").toUpperCase(); if (c === "ج.م" || c === "جنيه") c = "EGP"; const v = parseFloat(m[2].replace(/,/g, "")); if (isNaN(v)) return; tot[c] = (tot[c] || 0) + v; });
     return tot;
   }
-  const api = { money, split, fromEml, parse, deadline, daysLeft, ics, POLICIES };
+  function csv(items) {
+    const q = v => '"' + String(v == null ? "" : v).replace(/"/g, '""').replace(/^([=+\-@])/, "'$1") + '"';
+    return "store,item,order,purchased,window_days,deadline,amount,returned\n" + items.map(i => [i.store, i.item, i.order, i.purchased, i.windowDays, i.deadline, i.amount, i.done ? "yes" : "no"].map(q).join(",")).join("\n");
+  }
+  const api = { csv, money, split, fromEml, parse, deadline, daysLeft, ics, POLICIES };
   if (typeof module !== "undefined") module.exports = api; else root.Rag = api;
 })(typeof window !== "undefined" ? window : globalThis);
