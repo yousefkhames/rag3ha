@@ -71,6 +71,12 @@
     let body = raw.slice(hd.length).replace(/<style[\s\S]*?<\/style>/gi, "").replace(/<[^>]+>/g, " ").replace(/=\r?\n/g, "").replace(/&nbsp;/g, " ").replace(/&amp;/g, "&");
     return { from: (f.match(/[\w.+-]+@[\w.-]+/) || [f])[0], text: sub + "\n" + body };
   }
-  const api = { split, fromEml, parse, deadline, daysLeft, ics, POLICIES };
+  function money(items) {
+    const tot = {};
+    items.forEach(i => { const m = norm(i.amount || "").match(/(EGP|USD|EUR|GBP|SAR|AED|\$|€|£|ج\.م|جنيه)?\s?(\d[\d,]*(?:\.\d{1,2})?)\s?(EGP|USD|EUR|GBP|SAR|AED|ج\.م|جنيه)?/i); if (!m) return;
+      let c = (m[1] || m[3] || "").toUpperCase(); if (c === "ج.م" || c === "جنيه") c = "EGP"; const v = parseFloat(m[2].replace(/,/g, "")); if (isNaN(v)) return; tot[c] = (tot[c] || 0) + v; });
+    return tot;
+  }
+  const api = { money, split, fromEml, parse, deadline, daysLeft, ics, POLICIES };
   if (typeof module !== "undefined") module.exports = api; else root.Rag = api;
 })(typeof window !== "undefined" ? window : globalThis);
