@@ -22,7 +22,7 @@ Return windows close quietly. Most trackers ask for access to your inbox or an a
 
 ## Features
 - Reads an explicit "return by" date when the receipt has one, otherwise store, purchase or delivery date, total, item, order number and "N days" return phrases (Arabic digits supported).
-- Falls back to a default return window per store (about 40 stores, including noon, Jumia, Amazon.eg, B.TECH) and tells you when it did.
+- Falls back to a default return window per store (about 35 stores, including noon, Jumia, Amazon.eg, B.TECH) and tells you when it did.
 - Review screen before saving: fix the date or window if the store's policy differs.
 - Countdown colours (green, amber at 10 days, red at 3), open / closed / all filters, edit, mark returned, delete with undo.
 - Paste several receipts at once (separated by `---`) or import `.eml` / `.txt` files.
