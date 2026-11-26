@@ -81,6 +81,10 @@
     const q = v => '"' + String(v == null ? "" : v).replace(/"/g, '""').replace(/^([=+\-@])/, "'$1") + '"';
     return "store,item,order,purchased,window_days,deadline,amount,returned\n" + items.map(i => [i.store, i.item, i.order, i.purchased, i.windowDays, i.deadline, i.amount, i.done ? "yes" : "no"].map(q).join(",")).join("\n");
   }
-  const api = { csv, money, split, fromEml, parse, deadline, daysLeft, ics, POLICIES };
+  function summary(items, now, title) {
+    const open = items.filter(i => !i.done && daysLeft(i.deadline, now) >= 0).sort((a, b) => a.deadline.localeCompare(b.deadline));
+    return (title || "Returns closing soon") + ":\n" + (open.length ? open.map(i => "- " + (i.item || i.store) + " (" + i.store + "): " + i.deadline + " (" + daysLeft(i.deadline, now) + "d)").join("\n") : "- none");
+  }
+  const api = { summary, csv, money, split, fromEml, parse, deadline, daysLeft, ics, POLICIES };
   if (typeof module !== "undefined") module.exports = api; else root.Rag = api;
 })(typeof window !== "undefined" ? window : globalThis);
