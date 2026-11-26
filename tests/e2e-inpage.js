@@ -30,6 +30,9 @@ $("q").value="zara";$("q").dispatchEvent(new Event("input"));await sleep(20);ok(
 $("sample").click();$("parse").click();await sleep(30);$("save").click();await sleep(30);ok("duplicate blocked",JSON.parse(localStorage.rg_items).length===3,JSON.parse(localStorage.rg_items).length);
 $("txt").value="Order #ZZ1\nOrder date: 2026-11-10\nTotal: 5 zara";$("parse").click();await sleep(30);ok("zara window remembered",$("f-win").value==="10"||$("f-win").value==="30");
 $("review").classList.add("hide");
+$("txt").value="Order #XSS1\nItem: <img src=x onerror=window.__x=1>\nOrder date: 2026-11-12\nTotal: 5";$("parse").click();await sleep(30);$("f-date").value="";$("save").click();await sleep(20);ok("validation error shown",$("err").textContent.length>3&&JSON.parse(localStorage.rg_items).length===3);
+$("f-date").value="2026-11-12";$("save").click();await sleep(60);ok("html is escaped",!window.__x&&!document.querySelector("#items img")&&JSON.parse(localStorage.rg_items).length===4,String(window.__x));
+localStorage.rg_items="{not json";ok("corrupt storage survives",(()=>{try{JSON.parse(localStorage.rg_items)}catch(e){return true}})());
 }catch(e){ok("exception",false,String(e&&e.stack||e))}
 const pre=document.createElement("pre");pre.id="e2e-result";pre.textContent=JSON.stringify(R);document.body.appendChild(pre);
 })();
