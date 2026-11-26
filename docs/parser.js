@@ -1,11 +1,13 @@
 // Pure, client-side receipt parsing. Nothing leaves the browser.
 (function (root) {
-  const POLICIES = { amazon: 30, noon: 15, jumia: 15, apple: 14, ikea: 365, zara: 30, "h&m": 30, nike: 60, walmart: 90, target: 90, bestbuy: 15, ebay: 30, aliexpress: 15, shein: 45, etsy: 30, costco: 90, "mediamarkt": 14, "carrefour": 14, "other": 30 };
+  const POLICIES = { "amazon.eg": 15, "btech": 14, "2b": 14, "talabat": 1, "sharaf": 15, "extra": 15, "ikea": 365, "namshi": 14, "adidas": 30, "puma": 30, "dell": 21, "samsung": 15, "xiaomi": 15, "temu": 90, "lulu": 14, "decathlon": 30, "hm": 30, amazon: 30, noon: 15, jumia: 15, apple: 14, ikea: 365, zara: 30, "h&m": 30, nike: 60, walmart: 90, target: 90, bestbuy: 15, ebay: 30, aliexpress: 15, shein: 45, etsy: 30, costco: 90, "mediamarkt": 14, "carrefour": 14, "other": 30 };
   const MONTHS = { jan: 0, feb: 1, mar: 2, apr: 3, may: 4, jun: 5, jul: 6, aug: 7, sep: 8, sept: 8, oct: 9, nov: 10, dec: 11 };
   const AR = "٠١٢٣٤٥٦٧٨٩";
   const norm = s => s.replace(/[٠-٩]/g, d => AR.indexOf(d));
   const iso = d => d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
   function findDate(t) {
+    const dm = t.match(/(?:delivered(?: on)?|delivery date|تاريخ التسليم|تم التسليم)[:\s]*(\d{4}-\d{2}-\d{2})/i);
+    if (dm) { const x = dm[1].split("-"); return new Date(+x[0], +x[1] - 1, +x[2]); }
     let m = t.match(/(?:order(?:ed)?(?: date| placed)?|date|purchased|on)[:\s]*(\d{4})-(\d{2})-(\d{2})/i) || t.match(/(\d{4})-(\d{2})-(\d{2})/);
     if (m) return new Date(+m[1], +m[2] - 1, +m[3]);
     m = t.match(/(\d{1,2})(?:st|nd|rd|th)?\s+([A-Za-z]{3,9})\.?,?\s+(\d{4})/);
@@ -30,7 +32,8 @@
     return m ? +m[1] : null;
   }
   function findAmount(t) {
-    const m = norm(t).match(/(?:total|grand total|amount|الإجمالي|المجموع)[:\s=-]{0,6}((?:EGP|USD|EUR|GBP|SAR|AED|\$|€|£|ج\.م)?\s?[\d,]+(?:\.\d{1,2})?\s?(?:EGP|USD|EUR|GBP|SAR|AED|ج\.م)?)/i);
+    const t0 = norm(t);
+    const m = t0.match(/(?:total|grand total|amount|الإجمالي|المجموع)[:\s=-]{0,6}((?:EGP|USD|EUR|GBP|SAR|AED|\$|€|£|ج\.م)?\s?[\d,]+(?:\.\d{1,2})?\s?(?:EGP|USD|EUR|GBP|SAR|AED|ج\.م)?)/i);
     return m ? m[1].trim() : "";
   }
   function findItem(t) {

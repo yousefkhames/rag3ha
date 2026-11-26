@@ -5,4 +5,6 @@ a.equal(R.deadline("2026-11-20",30),"2026-12-20");
 p=R.parse("تم الطلب بتاريخ 3/11/2026 الإجمالي: ٤٥٠ ج.م ... استرجاع خلال ١٤ يوم","noon");a.equal(p.windowDays,14);a.equal(p.purchased,"2026-11-03");
 a.equal(R.daysLeft("2026-12-20",new Date(2026,10,26)),24);
 p=R.parse("Order on December 5, 2026 total 10","x@zara.com");a.equal(p.purchased,"2026-12-05");a.equal(p.windowDays,30);
-assert=0;console.log("ok");
+p=R.parse("Order date: 2026-11-01\nDelivered on: 2026-11-05\nTotal: EGP 1,299.00","orders@amazon.eg");a.equal(p.purchased,"2026-11-05");a.equal(p.windowDays,15);a.equal(p.amount,"EGP 1,299.00");
+p=R.parse("Your B.TECH order 2026-11-02","no-reply@btech.com");a.ok(p.store=="btech"||p.store=="other");
+console.log("ok");
