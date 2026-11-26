@@ -59,6 +59,13 @@
     });
     L.push("END:VCALENDAR"); return L.join("\r\n");
   }
-  const api = { parse, deadline, daysLeft, ics, POLICIES };
+  function split(text) { return text.split(/\n\s*-{3,}\s*\n/).map(x => x.trim()).filter(x => x.length > 15); }
+  function fromEml(raw) {
+    const hd = raw.split(/\r?\n\r?\n/)[0]; const f = (hd.match(/^From:.*$/im) || [""])[0].replace(/^From:\s*/i, "");
+    const sub = (hd.match(/^Subject:.*$/im) || [""])[0].replace(/^Subject:\s*/i, "");
+    let body = raw.slice(hd.length).replace(/<style[\s\S]*?<\/style>/gi, "").replace(/<[^>]+>/g, " ").replace(/=\r?\n/g, "").replace(/&nbsp;/g, " ").replace(/&amp;/g, "&");
+    return { from: (f.match(/[\w.+-]+@[\w.-]+/) || [f])[0], text: sub + "\n" + body };
+  }
+  const api = { split, fromEml, parse, deadline, daysLeft, ics, POLICIES };
   if (typeof module !== "undefined") module.exports = api; else root.Rag = api;
 })(typeof window !== "undefined" ? window : globalThis);

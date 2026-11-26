@@ -6,7 +6,7 @@
 <main>
 <section class="card" id="add"><h2 data-i="add"></h2><p class="muted" id="priv" data-i="priv"></p>
 <label for="txt" class="sr" data-i="ph"></label><textarea id="txt" rows="7" data-ip="ph" aria-describedby="priv"></textarea>
-<div class="row"><label for="from" class="sr" data-i="from"></label><input id="from" data-ip="from" autocomplete="off"><button class="ghost" id="sample" data-i="sample"></button><button id="parse" data-i="parse"></button></div></section>
+<div class="row"><label for="from" class="sr" data-i="from"></label><input id="from" data-ip="from" autocomplete="off"><button class="ghost" id="sample" data-i="sample"></button><label class="ghost btn" for="file" data-i="file"></label><input type="file" id="file" hidden accept=".eml,.txt,text/plain,message/rfc822"><button id="parse" data-i="parse"></button></div></section>
 <section class="card hide" id="review" aria-labelledby="h-rev" tabindex="-1"><h2 id="h-rev" data-i="check"></h2><div class="grid">
 <label><span data-i="store"></span><input id="f-store"></label><label><span data-i="item"></span><input id="f-item"></label>
 <label><span data-i="date"></span><input type="date" id="f-date"></label><label><span data-i="win"></span><input type="number" id="f-win" min="1" max="730"></label>
