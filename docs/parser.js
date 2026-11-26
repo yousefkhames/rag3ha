@@ -55,14 +55,17 @@
   function deadline(purchased, days) { const d = new Date(purchased + "T12:00:00"); d.setDate(d.getDate() + days); return iso(d); }
   function daysLeft(dl, now) { const a = new Date(dl + "T12:00:00"), b = new Date((now || new Date()).toDateString() + " 12:00:00"); return Math.round((a - b) / 864e5); }
   function ics(items) {
-    const L = ["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//Rag3ha//EN"];
+    const esc = s => String(s == null ? "" : s).replace(/\\/g, "\\\\").replace(/;/g, "\\;").replace(/,/g, "\\,").replace(/\r?\n/g, "\\n");
+    const nextDay = d => { const x = new Date(d + "T12:00:00"); x.setDate(x.getDate() + 1); return iso(x).replace(/-/g, ""); };
+    const fold = l => { const out = []; while (l.length > 73) { out.push(l.slice(0, 73)); l = " " + l.slice(73); } out.push(l); return out.join("\r\n"); };
+    const L = ["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//Rag3ha//EN", "CALSCALE:GREGORIAN"];
     items.filter(i => !i.done && i.deadline).forEach(i => {
       const d = i.deadline.replace(/-/g, "");
-      L.push("BEGIN:VEVENT", "UID:" + i.id + "@rag3ha", "DTSTAMP:" + new Date().toISOString().replace(/[-:]|\.\d{3}/g, ""), "DTSTART;VALUE=DATE:" + d,
-        "SUMMARY:Return deadline: " + (i.item || i.store).replace(/[,;\n]/g, " "), "DESCRIPTION:Store " + i.store + " order " + (i.order || "-"),
-        "BEGIN:VALARM", "TRIGGER:-P3D", "ACTION:DISPLAY", "DESCRIPTION:Return window closes in 3 days", "END:VALARM", "END:VEVENT");
+      L.push("BEGIN:VEVENT", "UID:" + i.id + "@rag3ha", "DTSTAMP:" + new Date().toISOString().replace(/[-:]|\.\d{3}/g, ""), "DTSTART;VALUE=DATE:" + d, "DTEND;VALUE=DATE:" + nextDay(i.deadline),
+        "SUMMARY:" + esc("Return deadline: " + (i.item || i.store)), "DESCRIPTION:" + esc("Store: " + i.store + "\nOrder: " + (i.order || "-") + (i.amount ? "\nAmount: " + i.amount : "")),
+        "TRANSP:TRANSPARENT", "BEGIN:VALARM", "TRIGGER:-P3D", "ACTION:DISPLAY", "DESCRIPTION:Return window closes in 3 days", "END:VALARM", "END:VEVENT");
     });
-    L.push("END:VCALENDAR"); return L.join("\r\n");
+    L.push("END:VCALENDAR"); return L.map(fold).join("\r\n") + "\r\n";
   }
   function split(text) { return text.split(/\n\s*-{3,}\s*\n/).map(x => x.trim()).filter(x => x.length > 15); }
   function fromEml(raw) {
