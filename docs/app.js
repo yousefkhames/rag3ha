@@ -31,5 +31,6 @@ function notify(){if(!("Notification" in window)||Notification.permission!=="gra
 items.filter(i=>!i.done).forEach(i=>{const n=Rag.daysLeft(i.deadline);const k=i.id+":"+i.deadline;if(n>=0&&n<=days&&!seen[k]){seen[k]=1;new Notification(T[L].remt+": "+(i.item||i.store),{body:i.deadline+" ("+n+" "+T[L].left+")",icon:"logo.svg"})}});localStorage.rg_seen=JSON.stringify(seen)}
 $("rem").onclick=()=>{if(!("Notification" in window)){toast(T[L].remno);return}Notification.requestPermission().then(p=>{if(p==="granted"){toast(T[L].remon);notify()}else toast(T[L].remno)})};
 $("remd").value=localStorage.rg_rem||"3";$("remd").onchange=()=>{localStorage.rg_rem=$("remd").value;notify()};
+if("serviceWorker" in navigator&&location.protocol.startsWith("http"))navigator.serviceWorker.register("sw.js").catch(()=>{});
 tr();notify();
 })();
