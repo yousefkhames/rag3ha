@@ -41,10 +41,15 @@
     return m ? m[1].trim() : "";
   }
   function findOrder(t) { const m = t.match(/order\s*(?:#|no\.?|number|id)?[:\s#]*([A-Z0-9-]{5,})/i); return m ? m[1] : ""; }
+  function findExplicit(t) {
+    const m = t.match(/(?:return(?:s)? (?:by|before|until|deadline)|returnable (?:until|by)|last day to return|آخر موعد للاسترجاع|الاسترجاع حتى)[:\s]*(\d{4}-\d{2}-\d{2}|\d{1,2}(?:st|nd|rd|th)?\s+[A-Za-z]{3,9}\.?,?\s+\d{4}|[A-Za-z]{3,9}\.?\s+\d{1,2}(?:st|nd|rd|th)?,?\s+\d{4})/i);
+    if (!m) return null; const d = findDate(m[1]); return d ? iso(d) : null;
+  }
   function parse(text, from) {
     const store = findStore(text, from);
     const win = findWindow(text);
-    const d = findDate(text);
+    const d = findDate(text); const ex = findExplicit(text);
+    if (ex && d) { const days = Math.round((new Date(ex + "T12:00:00") - new Date(iso(d) + "T12:00:00")) / 864e5); if (days > 0) return { store, purchased: iso(d), windowDays: days, windowSource: "receipt", amount: findAmount(text), item: findItem(text), order: findOrder(text), explicitDeadline: ex }; }
     return { store, purchased: d ? iso(d) : "", windowDays: win || POLICIES[store] || 30, windowSource: win ? "receipt" : "default policy", amount: findAmount(text), item: findItem(text), order: findOrder(text) };
   }
   function deadline(purchased, days) { const d = new Date(purchased + "T12:00:00"); d.setDate(d.getDate() + days); return iso(d); }
