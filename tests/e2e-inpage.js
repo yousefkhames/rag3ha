@@ -26,6 +26,7 @@ ok("persisted",JSON.parse(localStorage.rg_items).length===1);
 $("txt").value="Order #A1B2C3\nOrder date: 2026-11-01\nTotal: 10\n---\nOrder #D4E5F6\nOrder date: 2026-11-02\nTotal: 20 zara";$("parse").click();await sleep(30);
 document.querySelector('[data-f=all]').click();await sleep(20);ok("multi paste adds 2",JSON.parse(localStorage.rg_items).length===3,JSON.parse(localStorage.rg_items).length);
 ok("ics has events",Rag.ics(JSON.parse(localStorage.rg_items)).split("BEGIN:VEVENT").length>=2);
+$("q").value="zara";$("q").dispatchEvent(new Event("input"));await sleep(20);ok("search filters",document.querySelectorAll("#items .item").length===1,document.querySelectorAll("#items .item").length);$("q").value="";$("q").dispatchEvent(new Event("input"));
 }catch(e){ok("exception",false,String(e&&e.stack||e))}
 const pre=document.createElement("pre");pre.id="e2e-result";pre.textContent=JSON.stringify(R);document.body.appendChild(pre);
 })();
