@@ -14,7 +14,7 @@ ok("fields filled",$("f-store").value==="amazon"&&$("f-win").value==="30"&&$("f-
 $("save").click();await sleep(50);
 let it=document.querySelectorAll("#items .item");ok("item added",it.length===1,it.length);
 ok("stats text",$("stats").textContent.length>3);
-ok("no horizontal overflow",document.documentElement.scrollWidth<=window.innerWidth+1,document.documentElement.scrollWidth+">"+window.innerWidth);
+ok("no horizontal overflow",document.documentElement.scrollWidth<=window.innerWidth+1,document.documentElement.scrollWidth+">"+window.innerWidth+" "+[...document.querySelectorAll("body *")].filter(e=>e.getBoundingClientRect().right>innerWidth+1&&e.offsetParent).slice(0,4).map(e=>e.tagName+"#"+e.id+"."+e.className).join(","));
 document.querySelector('[data-a=e]').click();await sleep(20);ok("edit opens",!$("review").classList.contains("hide")&&$("f-store").value==="amazon");
 $("f-win").value="10";$("save").click();await sleep(20);it=document.querySelectorAll("#items .item");ok("edit keeps one",it.length===1,it.length);
 document.querySelector('[data-a=t]').click();await sleep(20);ok("returned leaves open list",document.querySelectorAll("#items .item").length===0);

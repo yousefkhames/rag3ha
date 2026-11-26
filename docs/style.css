@@ -36,3 +36,6 @@ select{background:#0d1b2e;color:var(--ink);border:1px solid var(--ln);border-rad
 @media print{header .hbtn,#add,.remrow,.tabs,.acts,footer,.top .row{display:none}body{background:#fff;color:#000}.card{border:0}}
 #how ol{margin:0;padding-inline-start:22px;color:var(--mut)}#how li{margin:4px 0}
 .toast.hide{display:none}
+main{grid-template-columns:minmax(0,1fr)}.card{min-width:0}h2,p,label,.m{overflow-wrap:anywhere}.row input{min-width:0}
+.item .m{min-width:0}.acts{flex-wrap:wrap}@media (max-width:560px){.item{grid-template-columns:78px minmax(0,1fr)}.item .acts{flex-wrap:wrap}}
+main{display:flex;flex-direction:column}main>*{margin:0}main{gap:16px}main.has-items #list{order:-1}
