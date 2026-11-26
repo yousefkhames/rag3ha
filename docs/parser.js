@@ -5,23 +5,23 @@
   const AR = "٠١٢٣٤٥٦٧٨٩";
   const norm = s => s.replace(/[٠-٩]/g, d => AR.indexOf(d));
   const iso = d => d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
+  function mk(y, m, d) { const x = new Date(y, m, d); return x.getFullYear() === y && x.getMonth() === m && x.getDate() === d && y >= 1990 && y <= 2100 ? x : null; }
   function findDate(t) {
-    const dm = t.match(/(?:delivered(?: on)?|delivery date|تاريخ التسليم|تم التسليم)[:\s]*(\d{4}-\d{2}-\d{2})/i);
-    if (dm) { const x = dm[1].split("-"); return new Date(+x[0], +x[1] - 1, +x[2]); }
-    let m = t.match(/(?:order(?:ed)?(?: date| placed)?|date|purchased|on)[:\s]*(\d{4})-(\d{2})-(\d{2})/i) || t.match(/(\d{4})-(\d{2})-(\d{2})/);
-    if (m) return new Date(+m[1], +m[2] - 1, +m[3]);
-    m = t.match(/(\d{1,2})(?:st|nd|rd|th)?\s+([A-Za-z]{3,9})\.?,?\s+(\d{4})/);
-    if (m && MONTHS[m[2].slice(0, 4).toLowerCase()] !== undefined || m && MONTHS[m[2].slice(0, 3).toLowerCase()] !== undefined)
-      return new Date(+m[3], MONTHS[m[2].slice(0, 3).toLowerCase()], +m[1]);
-    m = t.match(/([A-Za-z]{3,9})\.?\s+(\d{1,2})(?:st|nd|rd|th)?,?\s+(\d{4})/);
-    if (m && MONTHS[m[1].slice(0, 3).toLowerCase()] !== undefined) return new Date(+m[3], MONTHS[m[1].slice(0, 3).toLowerCase()], +m[2]);
-    m = t.match(/(\d{1,2})[\/.](\d{1,2})[\/.](\d{4})/);
-    if (m) { let a = +m[1], b = +m[2]; const day = a > 12 ? a : (b > 12 ? b : a), mon = a > 12 ? b : (b > 12 ? a : b); return new Date(+m[3], mon - 1, day); }
+    t = norm(t);
+    const dm = t.match(/(?:delivered(?: on)?|delivery date|تاريخ التسليم|تم التسليم)[:\s]*(\d{4})-(\d{2})-(\d{2})/i);
+    if (dm) { const x = mk(+dm[1], +dm[2] - 1, +dm[3]); if (x) return x; }
+    let m = t.match(/(?:order(?:ed)?(?: date| placed)?|date|purchased|on)[:\s]*(\d{4})-(\d{2})-(\d{2})/i);
+    if (m) { const x = mk(+m[1], +m[2] - 1, +m[3]); if (x) return x; }
+    for (const mm of t.matchAll(/(\d{4})-(\d{2})-(\d{2})/g)) { const x = mk(+mm[1], +mm[2] - 1, +mm[3]); if (x) return x; }
+    for (const mm of t.matchAll(/(\d{1,2})(?:st|nd|rd|th)?\s+([A-Za-z]{3,9})\.?,?\s+(\d{4})/g)) { const mo = MONTHS[mm[2].slice(0, 3).toLowerCase()]; if (mo !== undefined) { const x = mk(+mm[3], mo, +mm[1]); if (x) return x; } }
+    for (const mm of t.matchAll(/([A-Za-z]{3,9})\.?\s+(\d{1,2})(?:st|nd|rd|th)?,?\s+(\d{4})/g)) { const mo = MONTHS[mm[1].slice(0, 3).toLowerCase()]; if (mo !== undefined) { const x = mk(+mm[3], mo, +mm[2]); if (x) return x; } }
+    for (const mm of t.matchAll(/(\d{1,2})[\/.](\d{1,2})[\/.](\d{4})/g)) { const a = +mm[1], b = +mm[2]; const day = a > 12 ? a : (b > 12 ? b : a), mon = a > 12 ? b : (b > 12 ? a : b); const x = mk(+mm[3], mon - 1, day); if (x) return x; }
     return null;
   }
   function findStore(t, from) {
     const hay = (t + " " + (from || "")).toLowerCase();
-    for (const k of Object.keys(POLICIES)) if (k !== "other" && hay.includes(k)) return k;
+    const fr = (from || "").toLowerCase(), AMBIG = ["hm", "extra", "2b", "dell", "lulu", "temu", "puma"];
+    for (const k of Object.keys(POLICIES)) { if (k === "other") continue; const esc = k.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); if (fr.includes(k) || (!AMBIG.includes(k) && new RegExp("(^|[^a-z0-9])" + esc + "([^a-z0-9]|$)").test(t.toLowerCase())) || (AMBIG.includes(k) && new RegExp("(^|[^a-z0-9])" + esc + "\\.(com|eg)").test(t.toLowerCase()))) return k; }
     const m = (from || "").match(/@([a-z0-9-]+)\./i);
     return m ? m[1].toLowerCase() : "other";
   }
@@ -33,14 +33,14 @@
   }
   function findAmount(t) {
     const t0 = norm(t);
-    const m = t0.match(/(?:total|grand total|amount|الإجمالي|المجموع)[:\s=-]{0,6}((?:EGP|USD|EUR|GBP|SAR|AED|\$|€|£|ج\.م)?\s?[\d,]+(?:\.\d{1,2})?\s?(?:EGP|USD|EUR|GBP|SAR|AED|ج\.م)?)/i);
+    const m = t0.match(/(?:(?<![a-z])total|grand total|amount|الإجمالي|المجموع)[:\s=-]{0,6}((?:EGP|USD|EUR|GBP|SAR|AED|\$|€|£|ج\.م)?\s?[\d,]+(?:\.\d{1,2})?\s?(?:EGP|USD|EUR|GBP|SAR|AED|ج\.م|جنيه)?)/i);
     return m ? m[1].trim() : "";
   }
   function findItem(t) {
     const m = t.match(/(?:item|product|items?|المنتج)[:\s]+([^\n]{3,80})/i);
     return m ? m[1].trim() : "";
   }
-  function findOrder(t) { const m = t.match(/(?:order\s*(?:#|no\.?|number|id)?|رقم الطلب|رقم الأوردر)[:\s#]*([A-Z0-9-]{5,})/i); return m ? m[1] : ""; }
+  function findOrder(t) { const m = t.match(/(?:order\s*(?:#|no\.?|number|id)?|رقم الطلب|رقم الأوردر)[:\s#]*([A-Z0-9-]{5,})/i); return m && /\d/.test(m[1]) ? m[1] : ""; }
   function findExplicit(t) {
     const m = t.match(/(?:return(?:s)? (?:by|before|until|deadline)|returnable (?:until|by)|last day to return|آخر موعد للاسترجاع|الاسترجاع حتى)[:\s]*(\d{4}-\d{2}-\d{2}|\d{1,2}(?:st|nd|rd|th)?\s+[A-Za-z]{3,9}\.?,?\s+\d{4}|[A-Za-z]{3,9}\.?\s+\d{1,2}(?:st|nd|rd|th)?,?\s+\d{4})/i);
     if (!m) return null; const d = findDate(m[1]); return d ? iso(d) : null;

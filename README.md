@@ -46,12 +46,14 @@ The `docs/` folder is the whole site and is what GitHub Pages serves.
 
 ## Testing
 `test.js` covers the parser. `tests/run-e2e.sh` drives the real app in headless Chrome at 1200, 390 and 320 px in English and Arabic: add from a receipt, edit, mark returned, filter, delete and undo, multi-receipt paste, calendar export, and a no-horizontal-scroll check.
+`tests/flow.mjs` (puppeteer-core + Chrome) tests the data flow: paste, parse, save, JSON export then wipe then import, duplicate and hostile import rows, impossible dates, subtotal versus total, ICS validity, Arabic layout. Run `npm i puppeteer-core && node tests/flow.mjs`.
 
 ## Honest limits
 - It does not connect to Gmail or Outlook. That would need OAuth and a server you trust, so it is not included. You paste or import the text.
 - Parsing is rule-based. Always check the review screen: store policies change, and a window the receipt does not state is only a default.
 - Data is stored in your browser (localStorage). Clearing site data deletes it; use Export to back up.
 - Reminders only fire while the app is open; there is no push server.
+- A receipt date that does not exist (for example 31/02) is left blank so you enter it; it is never rolled into the next month.
 - Store names are matched by keyword, so unfamiliar stores fall back to a generic 30-day window.
 
 ## License
