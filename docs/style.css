@@ -34,3 +34,5 @@ select{background:#0d1b2e;color:var(--ink);border:1px solid var(--ln);border-rad
 :root[data-theme=light] .ok{background:#d6f3ee}:root[data-theme=light] .warn{background:#fdeccc;color:#7a4500}:root[data-theme=light] .bad{background:#fadcd9}:root[data-theme=light] .gone{background:#e8edf3}
 :root[data-theme=light] .tabs [aria-pressed=true]{color:#fff}:root[data-theme=light] .toast{background:#12263f;color:#fff}:root[data-theme=light] .toast button{background:#fff;color:#12263f}
 @media print{header .hbtn,#add,.remrow,.tabs,.acts,footer,.top .row{display:none}body{background:#fff;color:#000}.card{border:0}}
+#how ol{margin:0;padding-inline-start:22px;color:var(--mut)}#how li{margin:4px 0}
+.toast.hide{display:none}

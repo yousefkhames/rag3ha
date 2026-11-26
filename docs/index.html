@@ -1,6 +1,6 @@
 <!doctype html><html lang="en" dir="ltr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#0d1b2e">
 <title>Rag3ha | رجّعها, never miss a return window</title><meta name="description" content="Paste a purchase receipt, get the return deadline. Private, free, runs in your browser.">
-<link rel="icon" href="logo.svg"><link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="logo.svg"><link rel="stylesheet" href="style.css"></head><body><a class="skip" href="#add" data-i="skip"></a>
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; connect-src 'self'; form-action 'none'; base-uri 'none'"><meta property="og:title" content="Rag3ha | never miss a return window"><meta property="og:description" content="Paste a receipt, get the return deadline. Free, private, English and Arabic."><meta property="og:type" content="website"><link rel="icon" href="logo.svg"><link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="logo.svg"><link rel="stylesheet" href="style.css"></head><body><a class="skip" href="#add" data-i="skip"></a>
 <header role="banner"><div class="brand"><img src="logo.svg" alt="" width="40" height="40"><div><h1><b>Rag3ha</b> <span class="ar" lang="ar">رجّعها</span></h1><small data-i="tag"></small></div></div>
 <div class="hbtn"><button class="ghost" id="theme" aria-label="Theme" title="Theme">◐</button> <button id="lang" aria-label="Switch language / تغيير اللغة"></button></div></header>
 <main>
@@ -14,6 +14,7 @@
 <p class="muted" id="src"></p><div class="row"><button id="save" data-i="save"></button><button class="ghost" id="cancel" data-i="cancel"></button></div></section>
 <section class="card"><div class="top"><h2 data-i="list"></h2><div class="row"><button class="ghost" id="ics" data-i="ics"></button><button class="ghost" id="exp" data-i="exp"></button><label class="ghost btn" for="imp" data-i="imp"></label><input type="file" id="imp" hidden accept=".json"></div></div>
 <p class="muted" id="stats"></p><div class="row remrow"><button class="ghost" id="rem" data-i="rem"></button><label class="sr" for="remd">Days before</label><select id="remd"><option value="1">1</option><option value="3">3</option><option value="7">7</option></select></div><div class="tabs"><button class="ghost" data-f="active" data-i="fa"></button><button class="ghost" data-f="done" data-i="fd"></button><button class="ghost" data-f="all" data-i="fl"></button></div><div id="items" role="list" aria-live="polite"></div><div id="toast" class="toast hide" role="status" aria-live="assertive"></div><p class="muted hide" id="empty" data-i="empty"></p></section>
+<section class="card" id="how"><h2 data-i="howh"></h2><ol><li data-i="h1"></li><li data-i="h2"></li><li data-i="h3"></li></ol></section>
 </main>
 <footer><span data-i="foot"></span> · <a href="https://github.com/yousefkhames/rag3ha" id="gh">GitHub</a> · MIT</footer>
 <script src="parser.js"></script><script src="app.js"></script></body></html>
