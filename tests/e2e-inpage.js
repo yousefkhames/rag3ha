@@ -18,7 +18,7 @@ ok("date localized",/\d/.test(document.querySelector("#items .m small").textCont
 ok("no horizontal overflow",document.documentElement.scrollWidth<=window.innerWidth+1,document.documentElement.scrollWidth+">"+window.innerWidth+" "+[...document.querySelectorAll("body *")].filter(e=>e.getBoundingClientRect().right>innerWidth+1&&e.offsetParent).slice(0,4).map(e=>e.tagName+"#"+e.id+"."+e.className).join(","));
 document.querySelector('[data-a=e]').click();await sleep(20);ok("edit opens",!$("review").classList.contains("hide")&&$("f-store").value==="amazon");
 $("f-win").value="10";$("save").click();await sleep(20);it=document.querySelectorAll("#items .item");ok("edit keeps one",it.length===1,it.length);
-document.querySelector('[data-a=t]').click();await sleep(20);ok("returned leaves open list",document.querySelectorAll("#items .item").length===0);
+document.querySelector('[data-a=t]').click();await sleep(20);ok("returned leaves open list",document.querySelectorAll("#items .item").length===0);ok("returned toast has undo",!!$("toast").querySelector("button"));
 document.querySelector('[data-f=done]').click();await sleep(20);ok("closed list has it",document.querySelectorAll("#items .item").length===1);
 document.querySelector('[data-a=x]').click();await sleep(20);ok("deleted",document.querySelectorAll("#items .item").length===0);
 ok("toast shown",!$("toast").classList.contains("hide"));
