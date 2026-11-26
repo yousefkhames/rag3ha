@@ -28,6 +28,8 @@ document.querySelector('[data-f=all]').click();await sleep(20);ok("multi paste a
 ok("ics has events",Rag.ics(JSON.parse(localStorage.rg_items)).split("BEGIN:VEVENT").length>=2);
 $("q").value="zara";$("q").dispatchEvent(new Event("input"));await sleep(20);ok("search filters",document.querySelectorAll("#items .item").length===1,document.querySelectorAll("#items .item").length);$("q").value="";$("q").dispatchEvent(new Event("input"));
 $("sample").click();$("parse").click();await sleep(30);$("save").click();await sleep(30);ok("duplicate blocked",JSON.parse(localStorage.rg_items).length===3,JSON.parse(localStorage.rg_items).length);
+$("txt").value="Order #ZZ1\nOrder date: 2026-11-10\nTotal: 5 zara";$("parse").click();await sleep(30);ok("zara window remembered",$("f-win").value==="10"||$("f-win").value==="30");
+$("review").classList.add("hide");
 }catch(e){ok("exception",false,String(e&&e.stack||e))}
 const pre=document.createElement("pre");pre.id="e2e-result";pre.textContent=JSON.stringify(R);document.body.appendChild(pre);
 })();
