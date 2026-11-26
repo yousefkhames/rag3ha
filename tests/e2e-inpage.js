@@ -36,6 +36,7 @@ $("txt").value="Order #XSS1\nItem: <img src=x onerror=window.__x=1>\nOrder date:
 $("f-date").value="2026-11-12";$("save").click();await sleep(60);ok("html is escaped",!window.__x&&!document.querySelector("#items img")&&JSON.parse(localStorage.rg_items).length===5,String(window.__x));
 $("txt").value="Order #KB1\nOrder date: 2026-11-13\nTotal: 5";$("txt").dispatchEvent(new KeyboardEvent("keydown",{key:"Enter",ctrlKey:true,bubbles:true}));await sleep(30);ok("Ctrl+Enter parses",!$("review").classList.contains("hide"));
 $("review").dispatchEvent(new KeyboardEvent("keydown",{key:"Escape",bubbles:true}));await sleep(10);ok("Esc closes review",$("review").classList.contains("hide"));
+ok("hint visible",document.querySelector('[data-i=hint]').textContent.length>5);ok("install hidden by default",$("install").classList.contains("hide"));
 }catch(e){if(e!=="done")ok("exception",false,String(e&&e.stack||e))}
 const pre=document.createElement("pre");pre.id="e2e-result";pre.textContent=JSON.stringify(R);document.body.appendChild(pre);
 })();

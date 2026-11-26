@@ -41,3 +41,4 @@ main{grid-template-columns:minmax(0,1fr)}.card{min-width:0}h2,p,label,.m{overflo
 main{display:flex;flex-direction:column}main>*{margin:0}main{gap:16px}main.has-items #list{order:-1}
 #q{margin:4px 0 8px}
 .err{color:var(--bad);font-weight:700;margin:0}.err:empty{display:none}
+.small{font-size:13px;margin:6px 0}
