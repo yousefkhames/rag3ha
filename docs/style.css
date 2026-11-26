@@ -20,3 +20,8 @@ h1{margin:0;font-size:22px;font-weight:400}.brand b{font-size:22px}
 :focus-visible{outline:3px solid var(--acc);outline-offset:2px}
 .toast{position:fixed;bottom:18px;inset-inline:16px;max-width:420px;margin:auto;background:#fff;color:#111;padding:12px 16px;border-radius:12px;display:flex;gap:12px;justify-content:space-between;align-items:center;box-shadow:0 8px 30px #0008;z-index:10}.toast button{background:#12263f;color:#fff}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+@media (max-width:560px){body{font-size:17px}header,main{padding-inline:12px}.card{padding:16px;border-radius:14px}
+button,.btn,input,textarea{min-height:46px}.row>*{flex:1 1 100%}.top .row>*{flex:1 1 auto}
+.item{display:grid;grid-template-columns:78px 1fr;gap:10px}.item .d{grid-row:span 2}.item button{grid-column:2;justify-self:start}
+.item .acts{grid-column:2;display:flex;gap:8px}.grid{grid-template-columns:1fr}}
+body{padding-bottom:env(safe-area-inset-bottom)}header{padding-top:max(16px,env(safe-area-inset-top))}
