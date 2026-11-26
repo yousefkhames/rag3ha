@@ -14,7 +14,7 @@ ok("review shown",!$("review").classList.contains("hide"));
 ok("fields filled",$("f-store").value==="amazon"&&$("f-win").value==="30"&&$("f-date").value);
 $("save").click();await sleep(50);
 let it=document.querySelectorAll("#items .item");ok("item added",it.length===1,it.length);
-ok("date localized",/\d/.test(document.querySelector("#items .m small").textContent)&&!/\d{4}-\d{2}-\d{2}/.test(document.querySelector("#items .m small").textContent));ok("stats text",$("stats").textContent.length>3);
+ok("date localized",/\d/.test(document.querySelector("#items .m small").textContent)&&!/\d{4}-\d{2}-\d{2}/.test(document.querySelector("#items .m small").textContent));ok("day label grammar",(()=>{const d=document.querySelector("#items .d small");return !d||(want==="en"?/days? left/.test(d.textContent):/متبق/.test(d.textContent))})());ok("stats text",$("stats").textContent.length>3);
 ok("no horizontal overflow",document.documentElement.scrollWidth<=window.innerWidth+1,document.documentElement.scrollWidth+">"+window.innerWidth+" "+[...document.querySelectorAll("body *")].filter(e=>e.getBoundingClientRect().right>innerWidth+1&&e.offsetParent).slice(0,4).map(e=>e.tagName+"#"+e.id+"."+e.className).join(","));
 document.querySelector('[data-a=e]').click();await sleep(20);ok("edit opens",!$("review").classList.contains("hide")&&$("f-store").value==="amazon");
 $("f-win").value="10";$("save").click();await sleep(20);it=document.querySelectorAll("#items .item");ok("edit keeps one",it.length===1,it.length);
