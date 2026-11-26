@@ -1,0 +1,19 @@
+<!doctype html><html lang="en" dir="ltr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Rag3ha | رجّعها, never miss a return window</title><meta name="description" content="Paste a purchase receipt, get the return deadline. Private, free, runs in your browser.">
+<link rel="icon" href="logo.svg"><link rel="stylesheet" href="style.css"></head><body>
+<header><div class="brand"><img src="logo.svg" alt="" width="40" height="40"><div><b>Rag3ha</b> <span class="ar">رجّعها</span><small data-i="tag"></small></div></div>
+<div class="hbtn"><button id="lang"></button></div></header>
+<main>
+<section class="card" id="add"><h2 data-i="add"></h2><p class="muted" data-i="priv"></p>
+<textarea id="txt" rows="7" data-ip="ph"></textarea>
+<div class="row"><input id="from" data-ip="from"><button class="ghost" id="sample" data-i="sample"></button><button id="parse" data-i="parse"></button></div></section>
+<section class="card hide" id="review"><h2 data-i="check"></h2><div class="grid">
+<label><span data-i="store"></span><input id="f-store"></label><label><span data-i="item"></span><input id="f-item"></label>
+<label><span data-i="date"></span><input type="date" id="f-date"></label><label><span data-i="win"></span><input type="number" id="f-win" min="1" max="730"></label>
+<label><span data-i="amt"></span><input id="f-amt"></label><label><span data-i="ord"></span><input id="f-ord"></label></div>
+<p class="muted" id="src"></p><div class="row"><button id="save" data-i="save"></button><button class="ghost" id="cancel" data-i="cancel"></button></div></section>
+<section class="card"><div class="top"><h2 data-i="list"></h2><div class="row"><button class="ghost" id="ics" data-i="ics"></button><button class="ghost" id="exp" data-i="exp"></button><label class="ghost btn" for="imp" data-i="imp"></label><input type="file" id="imp" hidden accept=".json"></div></div>
+<div id="items"></div><p class="muted hide" id="empty" data-i="empty"></p></section>
+</main>
+<footer><span data-i="foot"></span> · <a href="https://github.com/" id="gh">GitHub</a> · MIT</footer>
+<script src="parser.js"></script><script src="app.js"></script></body></html>

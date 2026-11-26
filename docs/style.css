@@ -1,0 +1,16 @@
+:root{--bg:#0d1b2e;--card:#142843;--ink:#eef3fa;--mut:#9fb2cc;--acc:#ffb547;--ok:#5eead4;--bad:#ff6b6b;--ln:#243f63}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,"Segoe UI",Tahoma,sans-serif}
+header{display:flex;justify-content:space-between;align-items:center;padding:16px 20px;max-width:900px;margin:auto}
+.brand{display:flex;gap:12px;align-items:center}.brand b{font-size:22px}.brand .ar{color:var(--acc);font-size:20px}.brand small{display:block;color:var(--mut)}
+main{max-width:900px;margin:auto;padding:0 16px 40px;display:grid;gap:16px}.card{background:var(--card);border:1px solid var(--ln);border-radius:16px;padding:20px}
+h2{margin:0 0 8px;font-size:19px}.muted{color:var(--mut);font-size:14px;margin:4px 0 12px}.hide{display:none}
+textarea,input{width:100%;background:#0d1b2e;color:var(--ink);border:1px solid var(--ln);border-radius:10px;padding:10px;font:inherit}
+textarea:focus,input:focus,button:focus-visible{outline:2px solid var(--acc)}
+button,.btn{background:var(--acc);color:#1b1300;border:0;border-radius:10px;padding:10px 16px;font:inherit;font-weight:700;cursor:pointer}
+button.ghost,.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--ln);font-weight:500}
+.row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.row input{flex:1;min-width:160px}.top{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;align-items:center}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}label span{display:block;font-size:13px;color:var(--mut)}
+.item{display:flex;gap:14px;align-items:center;border-top:1px solid var(--ln);padding:12px 0;flex-wrap:wrap}.item .d{min-width:84px;text-align:center;border-radius:12px;padding:8px;font-weight:800}
+.d small{display:block;font-weight:400;font-size:12px}.ok{background:#12413f;color:var(--ok)}.warn{background:#4a3410;color:var(--acc)}.bad{background:#4a1c24;color:var(--bad)}.gone{background:#222d3d;color:var(--mut)}
+.item .m{flex:1;min-width:160px}.item .m small{color:var(--mut)}.item.done .m{opacity:.55;text-decoration:line-through}.item button{padding:6px 12px}
+footer{text-align:center;color:var(--mut);padding:20px;font-size:14px}a{color:var(--acc)}
