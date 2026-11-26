@@ -28,3 +28,9 @@ body{padding-bottom:env(safe-area-inset-bottom)}header{padding-top:max(16px,env(
 .tabs{display:flex;gap:6px;margin:6px 0}.tabs button{padding:6px 14px;min-height:0}.tabs [aria-pressed=true]{background:var(--acc);color:#1b1300;border-color:var(--acc)}
 select{background:#0d1b2e;color:var(--ink);border:1px solid var(--ln);border-radius:10px;padding:8px;font:inherit}.remrow{margin:0 0 8px;align-items:center}.remrow>*{flex:0 0 auto!important}
 [dir=rtl] .item .m{text-align:right}[dir=rtl] body{font-family:"Segoe UI",Tahoma,"Noto Naskh Arabic",system-ui,sans-serif}[dir=rtl] .brand small{letter-spacing:0}
+:root[data-theme=light]{--bg:#f4f7fb;--card:#fff;--ink:#12263f;--mut:#51657f;--acc:#b86a00;--ok:#0b6b5e;--bad:#b3261e;--ln:#d3dde9}
+:root[data-theme=light] button,:root[data-theme=light] .btn{color:#fff}:root[data-theme=light] button.ghost,:root[data-theme=light] .btn.ghost{color:var(--ink)}
+:root[data-theme=light] textarea,:root[data-theme=light] input,:root[data-theme=light] select{background:#f4f7fb}
+:root[data-theme=light] .ok{background:#d6f3ee}:root[data-theme=light] .warn{background:#fdeccc;color:#7a4500}:root[data-theme=light] .bad{background:#fadcd9}:root[data-theme=light] .gone{background:#e8edf3}
+:root[data-theme=light] .tabs [aria-pressed=true]{color:#fff}:root[data-theme=light] .toast{background:#12263f;color:#fff}:root[data-theme=light] .toast button{background:#fff;color:#12263f}
+@media print{header .hbtn,#add,.remrow,.tabs,.acts,footer,.top .row{display:none}body{background:#fff;color:#000}.card{border:0}}

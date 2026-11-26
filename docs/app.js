@@ -32,5 +32,7 @@ items.filter(i=>!i.done).forEach(i=>{const n=Rag.daysLeft(i.deadline);const k=i.
 $("rem").onclick=()=>{if(!("Notification" in window)){toast(T[L].remno);return}Notification.requestPermission().then(p=>{if(p==="granted"){toast(T[L].remon);notify()}else toast(T[L].remno)})};
 $("remd").value=localStorage.rg_rem||"3";$("remd").onchange=()=>{localStorage.rg_rem=$("remd").value;notify()};
 if("serviceWorker" in navigator&&location.protocol.startsWith("http"))navigator.serviceWorker.register("sw.js").catch(()=>{});
+const root=document.documentElement;let th=localStorage.rg_theme||(matchMedia("(prefers-color-scheme: light)").matches?"light":"dark");root.dataset.theme=th;
+$("theme").onclick=()=>{th=th=="light"?"dark":"light";localStorage.rg_theme=th;root.dataset.theme=th};
 tr();notify();
 })();
