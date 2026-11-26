@@ -21,11 +21,12 @@ Return windows close quietly. Most trackers ask for access to your inbox or an a
 | <img src="docs/screenshots/mobile-en.png" width="230" alt="Mobile English"> | <img src="docs/screenshots/mobile-ar.png" width="230" alt="Mobile Arabic"> | <img src="docs/screenshots/desktop-light-ar.png" width="330" alt="Desktop Arabic light theme"> |
 
 ## Features
-- Reads store, purchase or delivery date, total, item, order number and "N days" return phrases (Arabic digits supported).
-- Falls back to a default return window per store (about 30 stores, including noon, Jumia, Amazon.eg, B.TECH) and tells you when it did.
+- Reads an explicit "return by" date when the receipt has one, otherwise store, purchase or delivery date, total, item, order number and "N days" return phrases (Arabic digits supported).
+- Falls back to a default return window per store (about 40 stores, including noon, Jumia, Amazon.eg, B.TECH) and tells you when it did.
 - Review screen before saving: fix the date or window if the store's policy differs.
 - Countdown colours (green, amber at 10 days, red at 3), open / closed / all filters, edit, mark returned, delete with undo.
 - Paste several receipts at once (separated by `---`) or import `.eml` / `.txt` files.
+- Search, "at stake" totals per currency, duplicate detection, remembered per-store windows, CSV and plain-text summary export.
 - Calendar export (`.ics`) with a 3-day alert, JSON export/import, optional browser reminders.
 - English and Arabic (RTL, Arabic-Indic digits), light and dark theme, installable offline PWA.
 - Accessible: skip link, labelled fields, live regions, visible focus, reduced-motion support.
